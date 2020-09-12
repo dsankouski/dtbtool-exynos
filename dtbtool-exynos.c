@@ -385,14 +385,15 @@ int main(int argc, char **argv)
 			read_val;
 			dt_subtype_code = strtoul(val, 0, 16);
 		} else if (*arg != '-') {
-			/* skip over already allocated file names */
+		    /* skip over already allocated file names */
             for (; dtb_files[dt_count]; dt_count++) {
-                if (dt_count >= DTB_MAX) {
-                    fail("reached dtb file limit (%d)", DTB_MAX);
-                } else {
-                    dtb_files[dt_count] = strdup(arg);
-                    if (!dtb_files[dt_count]) fail("failed to allocate memory");
-                }
+            	if (dt_count >= DTB_MAX) {
+            		fail("reached dtb file limit (%d)", DTB_MAX);
+            	}
+            }
+            dtb_files[dt_count] = strdup(arg);
+            if (!dtb_files[dt_count]) {
+            	fail("failed to allocate memory");
             }
 		} else
 			usage();
